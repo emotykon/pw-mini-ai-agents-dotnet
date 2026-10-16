@@ -1,6 +1,6 @@
 # Raport — Laboratorium 03
 
-**Zespół:**  MIchał Mueller, Kazimierz Krześniak, Jakub Motyka
+**Zespół:**  Michał Mueller, Kazimierz Krześniak, Jakub Motyka
 **Data:**  16.10
 
 ## Środowisko
@@ -17,9 +17,9 @@ Jak oceniamy poprawność odpowiedzi modelu? Jakie metryki przyjmujemy i dlaczeg
 
 | Metryka | Definicja |
 |---------|-----------|
-|% poprawnych pięter | |
-|% poprawnych wind||
-|% poprawnych obu||
+|% poprawnych pięter | czy podał dokładną ilość pięter |
+|% poprawnych wind|czy poprawnie powiedział czy jest winda|
+|% poprawnych obu|czy udało sie poprawnie oba powyższe|
 
 
 ## EXP-01 — Porównanie modeli
