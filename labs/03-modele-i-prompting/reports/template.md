@@ -1,7 +1,7 @@
 # Raport — Laboratorium 03
 
-**Zespół:**  
-**Data:**  
+**Zespół:**  MIchał Mueller, Kazimierz Krześniak, Jakub Motyka
+**Data:**  16.10
 
 ## Środowisko
 
@@ -17,13 +17,16 @@ Jak oceniamy poprawność odpowiedzi modelu? Jakie metryki przyjmujemy i dlaczeg
 
 | Metryka | Definicja |
 |---------|-----------|
-| | |
+|% poprawnych pięter | |
+|% poprawnych wind||
+|% poprawnych obu||
+
 
 ## EXP-01 — Porównanie modeli
 
 | Model | Floor accuracy | Elevator accuracy | Exact match | Średni czas [ms] |
 |-------|----------------|-------------------|-------------|------------------|
-| | | | | |
+|bielik 11b | | | | |
 
 
 **Exact match** oznacza odsetek notatek, dla których model poprawnie rozpoznał jednocześnie oba pola: `floor` i `elevator`.
