@@ -3,7 +3,7 @@ using var http = new HttpClient
     Timeout = TimeSpan.FromMinutes(5)
 };
 
-var client = new OllamaClient(http);
+var client = new PCSSClient(http);
 
 var experiment = args.FirstOrDefault();
 

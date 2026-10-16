@@ -3,11 +3,11 @@ public static class ModelComparison
 {
     private static readonly string[] Models =
     [
-        "gemma3:4b",
-        "qwen3:4b"
+        "bielik_11b",
+        // "DeepSeek-V3.1",
     ];
 
-    public static async Task RunAsync(OllamaClient client)
+    public static async Task RunAsync(IClient client)
     {
         foreach (var model in Models)
         {
