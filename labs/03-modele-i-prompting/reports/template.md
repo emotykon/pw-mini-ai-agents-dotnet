@@ -7,8 +7,8 @@
 
 | Parametr | Wartość |
 |----------|---------|
-| Wersja Ollama | |
-| Sprzęt (CPU/GPU, RAM) | |
+| Wersja Ollama | Korzystaliśmy z zewnętrznego API PCSS)|
+| Sprzęt (CPU/GPU, RAM) | Nie dotyczy, korzystaliśmy z API |
 | Liczba dostępnych notatek | 170 |
 
 ## EXP-00 — Sposób oceny wyników
@@ -25,33 +25,44 @@ Jak oceniamy poprawność odpowiedzi modelu? Jakie metryki przyjmujemy i dlaczeg
 ## EXP-01 — Porównanie modeli
 
 | Model | Floor accuracy | Elevator accuracy | Exact match | Średni czas [ms] |
-|-------|----------------|-------------------|-------------|------------------|
-|bielik 11b | | | | |
+|---|---|---|---|---|
+| Bielik 11B | 0.2 | 0.3 | 0.2 | 1998 |
+| DeepSeek-V3.1 (1) | 1.0 | 0.8 | 0.8 | 953 |
+| DeepSeek-V3.1 (2) | 1.0 | 0.8 | 0.8 | 683 |
+| DeepSeek-V4-Flash | 0.7 | 0.7 | 0.6 | 213 |
+| Qwen3.5-397B-A17B | 1.0 | 0.9 | 0.9 | 12734 |
 
 
 **Exact match** oznacza odsetek notatek, dla których model poprawnie rozpoznał jednocześnie oba pola: `floor` i `elevator`.
 
 **Wnioski:**
+ Qwen3.5-397B-A17B poradził sobie najlepiej potrzebował jednak kilkukrotnie więcej czasu niewiele gorszy od niego DeepSeek-V3.1, który potrzebował 10x mniej czasu na odpowowiedz. Najwiekszą prędkością wykazał się model DeepSeek-V4-Flash, dając jednak zauważalnie gorsze wyniki. Z drugiej strony Bielik 11B chociaż zdecydowanie najtańszy okazał się wolny i absolutnie nieskuteczny.
 
 ## EXP-02 — Prompting
 
-| Wariant | Floor accuracy | Elevator accuracy | Exact match |
-|---------|----------------|-------------------|-------------|
-| zero-shot | | | |
-| one-shot | | | |
-| few-shot | | | |
+| Model | Wariant | Floor accuracy | Elevator accuracy | Exact match | Średni czas [ms] |
+|---|---|---|---|---|---|
+| Bielik 11B | zero-shot | 0.07 | 0.10 | 0.07 | 1852 |
+| DeepSeek-V3.1 | zero-shot | 1.00 | 0.80 | 0.80 | 818 |
+| DeepSeek-V4-Flash | zero-shot | 0.73 | 0.70 | 0.57 | 247 |
+| DeepSeek-V4-Flash | one-shot | 0.90 | 0.80 | 0.75 | 199 |
+| DeepSeek-V4-Flash | few-shot | 0.95 | 0.80 | 0.75 | 176 |
+| Qwen3.5-397B-A17B | zero-shot | 1.00 | 0.90 | 0.90 | 12734 |
 
 **Wnioski:**
+Dla DeepSeek-V4-Flash dodanie my przykładów nie tylko znacznie zwiększyło procent poprawnych odpowiedzi ale też paradoksalnie zauważalnie skróciło czas generowania odpowiedzi. Chociaż dodanie pierwszego przykładu dalej poprawiało skutacznośc sprawdzenia piętra to rozpoznawanie windy już się nie zmieniło. Droższe modele za to mimo nie posiadania ani jednego przykładu dalej dawały dużo bardziej precyzyjne wyniki.
 
 ## EXP-03 — Temperature
 
+DeepSeek-V4-Flash
 | Temperature | Exact match | Powtarzalne notatki |
-|-------------|-------------|---------------------|
-| 0.0 | | |
-| 0.5 | | |
-| 1.0 | | |
+|---|---|---|
+| 0.0 | 0.62 |  (0.62 / 0.62), valid JSON: 46/50 |
+| 0.5 | 0.67 |  (0.68 i 0.66), najwyższy wynik, valid JSON: 45–49/50 |
+| 1.0 | 0.61 |  (0.56 i 0.66), wysoka wariancja, valid JSON: 43–50/50 |
 
 **Wnioski:**
+Najlepsze wyniki dała temperatura 0.5 osiągając nieduże różnice w skuteczności a wyraźnie wyższy procent poprawności. Przy temperaturze 0.0 wyniki które wymagały konkretnej odpowiedzi były też dobre. Przy temperaturze 1 osiągaliśmy zarówno najlepsze i najgorsze wyniki więc to podejście o ile może dać bardzo dobry rezultat to będzie on mniej powtarzalny.
 
 ## EXP-04 — Structured output — JSON i walidacja
 
