@@ -1,7 +1,7 @@
 # Raport — Laboratorium 03
 
 **Zespół:**  Michał Mueller, Kazimierz Krześniak, Jakub Motyka
-**Data:**  16.10
+**Data:**  16.10-21.10
 
 ## Środowisko
 
